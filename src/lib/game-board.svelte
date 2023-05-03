@@ -1,14 +1,12 @@
 <script lang="ts">
-    import { grass } from "./terrain/builders";
+    import * as GameState from "$lib/services/game-state";
+    import type { Terrain } from "$lib/terrain";
 
-    let grid = [
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-        [ grass(), grass(), grass(), grass(), grass(), grass() ],
-    ];
+    let grid: Terrain[][];
+
+    GameState.subscribe(({world}) => {
+        grid = world;
+    });
 
 </script>
 
@@ -49,5 +47,11 @@
 
     .cell.grass {
         background-color: green;
+    }
+    .cell.water {
+        background-color: blue;
+    }
+    .cell.sand {
+        background-color: yellow;
     }
 </style>

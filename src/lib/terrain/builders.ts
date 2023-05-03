@@ -1,21 +1,13 @@
-export interface Grass {
-    type: "grass"
-}
-export interface Coast {
-    type: "coast"
-}
-export interface Water {
-    type: "water"
-}
-
-export type Terrain = Grass | Coast | Water
+import type { Sand, Grass, Water } from "."
 
 export const grass = (): Grass => ({
     type: "grass"
 })
-export const coast = (): Coast => ({
-    type: "coast"
+
+export const sand = (): Sand => ({
+    type: "sand"
 })
+
 export const water = (): Water => ({
     type: "water"
 })
