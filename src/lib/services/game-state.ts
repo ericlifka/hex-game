@@ -1,28 +1,34 @@
-import type { Entity } from '$lib/entities';
 import { player } from '$lib/entities/builders';
-import type { Terrain } from '$lib/terrain';
 import { buildWorld } from '$lib/terrain/world-map';
 import { writable } from 'svelte/store';
+import type { GameEvent, GameModel, GameModelSubscription } from '.';
 
-export type GameModel = {
-    world: Terrain[][]
-    player: Entity
-};
-export type GameModelSubscription = (model: GameModel) => void;
-export type GameEvent = void;
-
-let initialState: GameModel = {
+let initialModel: GameModel = {
     world: buildWorld(),
-    player: player(2, 2)
+    player: player(2, 2),
+    active: {x: 0, y: 0},
 };
-initialState.world[2][2].children.push(initialState.player);
+initialModel.world[2][2].children.push(initialModel.player);
 
-const store = writable<GameModel>(initialState);
+const store = writable<GameModel>(initialModel);
 
 export function subscribe(fn: GameModelSubscription): void {
     store.subscribe(fn);
 }
 
 export function dispatch(event: GameEvent): void {
+    store.update(model => {
+        switch (event.type) {
+            case 'click': 
+                model.world[model.active.y][model.active.x].highlight = 'default';
+                model.world[event.target.y][event.target.x].highlight = 'active';
+                model.active = { ...event.target }
+                break;
 
+            default:
+                console.error(`Unrecognized event type: '${event.type}'`);
+        }
+        return model;
+    })
+    
 }

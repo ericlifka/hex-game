@@ -4,6 +4,7 @@ interface BaseTerrain {
     type: string
     children: Entity[]
     coord: { x: number, y: number }
+    highlight: string
 }
 
 export interface Grass extends BaseTerrain {
