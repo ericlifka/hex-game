@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as GameState from "$lib/services/game-state";
     import type { Terrain } from "$lib/terrain";
+    import TerrainCell from "$lib/terrain/terrain-cell.svelte";
 
     let grid: Terrain[][];
 
@@ -14,7 +15,7 @@
     {#each grid as row}
         <div class="row">
             {#each row as cell}
-                <div class={"cell " + cell.type}></div>
+                <TerrainCell cell={cell} />
             {/each}
         </div>
     {/each}
@@ -34,24 +35,5 @@
 
     .row:nth-child(even) {
         margin-left: 27px;
-    }
-
-    .cell {
-        display: flex;
-        flex-direction: row;
-        min-width: 50px;
-        min-height: 50px;
-        border-radius: 50%;
-        margin-right: 4px;
-    }
-
-    .cell.grass {
-        background-color: green;
-    }
-    .cell.water {
-        background-color: blue;
-    }
-    .cell.sand {
-        background-color: yellow;
     }
 </style>
