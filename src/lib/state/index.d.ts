@@ -1,6 +1,7 @@
 import type { Terrain } from '$lib/terrain';
 import type { Entity } from '$lib/entities';
 
+export type Coord = { x: number, y: number }
 
 export type GameModel = {
     world: Terrain[][]
@@ -10,9 +11,13 @@ export type GameModel = {
 export type GameModelSubscription = (model: GameModel) => void;
 
 
+export type HoverEvent = {
+    type: 'hover'
+    target: Coord
+}
 export type ClickEvent = {
     type: 'click'
-    target: { x: number, y: number }
+    target: Coord
 }
 
-export type GameEvent = ClickEvent;
+export type GameEvent = HoverEvent | ClickEvent;

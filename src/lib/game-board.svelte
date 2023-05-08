@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as GameState from "$lib/services/game-state";
+    import * as GameState from "$lib/state/game-state";
     import type { Terrain } from "$lib/terrain";
     import TerrainCell from "$lib/terrain/terrain-cell.svelte";
 

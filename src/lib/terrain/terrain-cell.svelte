@@ -1,15 +1,18 @@
 <script lang="ts">
     import type { Terrain } from ".";
-    import * as GameState from "$lib/services/game-state";
+    import * as GameState from "$lib/state/game-state";
 
     export let cell: Terrain;
 
+    function hover() {
+        GameState.dispatch({ type: 'hover', target: { ...cell.coord }});
+    }
     function click() {
         GameState.dispatch({ type: 'click', target: { ...cell.coord }});
     }
 </script>
 
-<div class={["terrain-cell", cell.type, cell.highlight].join(' ')} on:click={click} on:keypress={click}>
+<div class={["terrain-cell", cell.type, cell.highlight].join(' ')} on:mouseenter={hover} on:click={click}  on:keydown={click}>
     {#each cell.children as child}
         <img src={child.sprite} height=50 alt="player"/>
     {/each}
@@ -25,7 +28,6 @@
         min-height: 50px;
         border-radius: 50%;
         margin-right: 4px;
-        /* border: 2px solid black; */
     }
 
     .terrain-cell.grass {
